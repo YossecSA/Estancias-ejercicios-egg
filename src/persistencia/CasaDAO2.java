@@ -3,7 +3,7 @@ package persistencia;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidades.*;
+import entidades.Casa;
 
 public class CasaDAO2 extends DAO {
 public int insertarCasa(Casa casa) throws Exception {
@@ -58,6 +58,7 @@ public int insertarCasa(Casa casa) throws Exception {
 
         if (resultSet.next()) {
             Casa casa = new Casa();
+
             casa.setId_casa(resultSet.getInt("id")); 
             casa.setCalle(resultSet.getString("calle"));
             casa.setNumero(resultSet.getInt("numero"));
