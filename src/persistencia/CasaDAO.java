@@ -1,4 +1,7 @@
 package persistencia;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,42 @@ public class CasaDAO extends DAO {
         } finally {
             desconectarDataBase();
         }
+    }
+
+    public int insertarCasa(Casa casa) throws Exception {
+        int idGenerado = 0;
+        String sql = "INSERT INTO casa (calle, numero, codigo_postal, ciudad, pais, fecha_desde, fecha_hasta, tiempo_minimo, tiempo_maximo, precio_habitacion, tipo_vivienda) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            connectarDataBase();
+            PreparedStatement ps = conexion.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, casa.getCalle());
+            ps.setInt(2, casa.getNumero());
+            ps.setString(3, casa.getCodigo_postal());
+            ps.setString(4, casa.getCiudad());
+            ps.setString(5, casa.getPais());
+            ps.setString(6, casa.getFecha_desde());
+            ps.setString(7, casa.getFecha_hasta());
+            ps.setInt(8, casa.getTiempo_minimo());
+            ps.setInt(9, casa.getTiempo_maximo());
+            ps.setDouble(10, casa.getPrecio_habitacion());
+            ps.setString(11, casa.getTipo_vivienda());
+
+            ps.executeUpdate();
+            
+            // Obtener el ID autogenerado
+            ResultSet generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                idGenerado = generatedKeys.getInt(1);
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new Exception("Error al insertar casa: " + ex.getMessage());
+        } finally {
+            desconectarDataBase();
+        }
+        return idGenerado; // Retorna el ID generado
     }
 
     public void modificarCasa(Casa casa) throws Exception {

@@ -1,14 +1,14 @@
 package persistencia;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public abstract class DAO {
-protected Connection conexion = null;
+    protected Connection conexion = null;
     protected ResultSet resultSet = null;
     protected Statement statement = null;
     protected PreparedStatement preparedStatement = null;
@@ -21,13 +21,12 @@ protected Connection conexion = null;
 
     private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String ZONA = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    
+
     protected void connectarDataBase() throws SQLException, ClassNotFoundException {
         try {
             Class.forName(DRIVER);
             String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + ZONA;
             conexion = DriverManager.getConnection(url, USER, PASSWORD);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -48,7 +47,7 @@ protected Connection conexion = null;
             System.out.println(e.getMessage());
         }
     }
-    
+
     protected void insertarModificarEliminarDataBase(String sql) throws Exception {
         try {
             connectarDataBase();
@@ -68,7 +67,6 @@ protected Connection conexion = null;
             connectarDataBase();
             statement = conexion.createStatement();
             resultSet = statement.executeQuery(sql);
-
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
             throw ex;
@@ -81,11 +79,10 @@ protected Connection conexion = null;
             connectarDataBase();
             statement = conexion.createStatement();
             resultSet = statement.executeQuery(sql);
-    
+
             if (resultSet.next()) {
                 id = resultSet.getInt(1); // assuming the ID is the first column
             }
-    
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
             throw ex;
@@ -107,10 +104,11 @@ protected Connection conexion = null;
                 throw new SQLException("No se pudo obtener el ID generado");
             }
         } catch (SQLException | ClassNotFoundException ex) {
-                System.out.println(ex.getMessage());
-                throw ex;
+            System.out.println(ex.getMessage());
+            throw ex;
         } finally {
             desconectarDataBase();
         }
     }
-} 
+}
+
