@@ -1,6 +1,6 @@
 package entidades;
 
-public class casa {
+public class Casa {
     private int id_casa;
     private String calle;
     private int numero;
@@ -14,7 +14,11 @@ public class casa {
     private Double precio_habitacion;
     private String tipo_vivienda;
 
-    public casa(int id_casa, String calle, int numero, String codigo_postal, String ciudad, String pais,
+    public Casa(){
+        
+    }
+
+    public Casa(int id_casa, String calle, int numero, String codigo_postal, String ciudad, String pais,
             String fecha_desde, String fecha_hasta, int tiempo_minimo, int tiempo_maximo, Double precio_habitacion,
             String tipo_vivienda) {
         this.id_casa = id_casa;
