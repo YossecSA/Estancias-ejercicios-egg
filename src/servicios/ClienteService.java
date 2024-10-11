@@ -20,6 +20,9 @@ public class ClienteService {
         clienteDAO.guardarCliente(cliente);
     }
 
+    
+
+
     public void modificarCliente(Cliente cliente) throws Exception {
         if (cliente == null || cliente.getId_cliente() <= 0) {
             throw new IllegalArgumentException("Cliente inválido");

@@ -5,6 +5,11 @@ public class Comentario {
     private int id_casa;
     private String comentario;
 
+    public Comentario(int id_casa, String comentario){
+        this.id_casa = id_casa;
+        this.comentario = comentario;
+    }
+
     public Comentario(int id_comentario, int id_casa, String comentario) {
         this.id_comentario = id_comentario;
         this.id_casa = id_casa;
