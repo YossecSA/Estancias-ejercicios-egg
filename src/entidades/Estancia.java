@@ -10,6 +10,16 @@ public class Estancia {
 
     public Estancia() {
     }
+    
+
+    public Estancia(int id_cliente, int id_casa, String nombre_huesped, String fecha_desde, String fecha_hasta) {
+        this.id_cliente = id_cliente;
+        this.id_casa = id_casa;
+        this.nombre_huesped = nombre_huesped;
+        this.fecha_desde = fecha_desde;
+        this.fecha_hasta = fecha_hasta;
+    }
+
 
     public Estancia(int id_estancia, int id_cliente, int id_casa, String nombre_huesped, String fecha_desde,
             String fecha_hasta) {

@@ -1,6 +1,7 @@
 package servicios;
 
 import java.util.List;
+import java.util.Optional;
 import entidades.Estancia;
 import persistencia.EstanciaDAO;
 
@@ -11,19 +12,48 @@ public class EstanciaService {
         estanciaDAO = new EstanciaDAO();
     }
 
-    public void guardarEstancia(Estancia estancia) throws Exception {
-        validarEstancia(estancia);
-        estanciaDAO.guardarEstancia(estancia);
+    /**
+     * Guarda una nueva estancia.
+     *
+     * @param id_cliente    El ID del cliente.
+     * @param id_casa      El ID de la casa.
+     * @param nombre_huesped El nombre del huésped.
+     * @param fecha_desde   La fecha de inicio de la estancia.
+     * @param fecha_hasta   La fecha de finalización de la estancia.
+     * @throws InvalidEstanciaException si los datos de la estancia son inválidos.
+     */
+    public void guardarEstancia(int id_cliente, int id_casa, String nombre_huesped, String fecha_desde, String fecha_hasta) throws Exception {
+        Estancia _estancia = new Estancia(id_cliente, id_casa, nombre_huesped, fecha_desde, fecha_hasta);
+        validarEstancia(_estancia);
+        estanciaDAO.guardarEstancia(_estancia);
     }
 
-    public void modificarEstancia(Estancia estancia) throws Exception {
-        if (estancia.getId_estancia() <= 0) {
+    /**
+     * Modifica una estancia existente.
+     *
+     * @param id_estancia   El ID de la estancia a modificar.
+     * @param id_cliente    El ID del cliente.
+     * @param id_casa      El ID de la casa.
+     * @param nombre_huesped El nombre del huésped.
+     * @param fecha_desde   La fecha de inicio de la estancia.
+     * @param fecha_hasta   La fecha de finalización de la estancia.
+     * @throws InvalidEstanciaException si los datos de la estancia son inválidos.
+     */
+    public void modificarEstancia(int id_estancia, int id_cliente, int id_casa, String nombre_huesped, String fecha_desde, String fecha_hasta) throws Exception {
+        if (id_estancia <= 0) {
             throw new Exception("El ID de la estancia debe ser mayor que 0.");
         }
-        validarEstancia(estancia);
-        estanciaDAO.modificarEstancia(estancia);
+        Estancia _estancia = new Estancia(id_estancia, id_cliente, id_casa, nombre_huesped, fecha_desde, fecha_hasta);
+        validarEstancia(_estancia);
+        estanciaDAO.modificarEstancia(_estancia);
     }
 
+    /**
+     * Elimina una estancia existente.
+     *
+     * @param id_estancia   El ID de la estancia a eliminar.
+     * @throws InvalidEstanciaException si el ID de la estancia es inválido.
+     */
     public void eliminarEstancia(int id_estancia) throws Exception {
         if (id_estancia <= 0) {
             throw new Exception("El ID de la estancia a eliminar debe ser mayor que 0.");
@@ -31,13 +61,25 @@ public class EstanciaService {
         estanciaDAO.eliminarEstancia(id_estancia);
     }
 
-    public Estancia buscarEstanciaPorId(int id_estancia) throws Exception {
+    /**
+     * Busca una estancia por su ID.
+     *
+     * @param id_estancia   El ID de la estancia a buscar.
+     * @return Un Optional que contiene la estancia encontrada o vacío si no existe.
+     */
+    public Optional<Estancia> buscarEstanciaPorId(int id_estancia) throws Exception {
         if (id_estancia <= 0) {
             throw new Exception("El ID de la estancia a buscar debe ser mayor que 0.");
         }
-        return estanciaDAO.buscarEstanciaPorId(id_estancia);
+        return Optional.ofNullable(estanciaDAO.buscarEstanciaPorId(id_estancia));
     }
 
+    /**
+     * Lista las estancias de un cliente específico.
+     *
+     * @param id_cliente    El ID del cliente.
+     * @return Lista de estancias del cliente.
+     */
     public List<Estancia> listarEstanciasPorCliente(int id_cliente) throws Exception {
         if (id_cliente <= 0) {
             throw new Exception("El ID del cliente debe ser mayor que 0.");
