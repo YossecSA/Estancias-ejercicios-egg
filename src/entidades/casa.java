@@ -14,6 +14,21 @@ public class Casa {
     private Double precio_habitacion;
     private String tipo_vivienda;
 
+    public Casa(String calle, int numero, String codigo_postal, String ciudad, String pais, String fecha_desde,
+            String fecha_hasta, int tiempo_minimo, int tiempo_maximo, Double precio_habitacion, String tipo_vivienda) {
+        this.calle = calle;
+        this.numero = numero;
+        this.codigo_postal = codigo_postal;
+        this.ciudad = ciudad;
+        this.pais = pais;
+        this.fecha_desde = fecha_desde;
+        this.fecha_hasta = fecha_hasta;
+        this.tiempo_minimo = tiempo_minimo;
+        this.tiempo_maximo = tiempo_maximo;
+        this.precio_habitacion = precio_habitacion;
+        this.tipo_vivienda = tipo_vivienda;
+    }
+
     public Casa(){
         
     }
