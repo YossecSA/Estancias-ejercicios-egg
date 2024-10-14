@@ -52,6 +52,10 @@ public class FamiliaService {
         }
     }
 
+    public List<Familia> listarFamiliasHotmail() throws Exception {
+        return familiaDAO.listarFamiliasHotmail();
+    }
+    
     private void validarFamilia(Familia familia) throws Exception {
         if (familia == null) {
             throw new Exception("La familia no puede ser nula.");

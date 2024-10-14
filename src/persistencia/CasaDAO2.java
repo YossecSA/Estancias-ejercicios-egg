@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Casa;
-import entidades.Familia;
+
 
 public class CasaDAO2 extends DAO {
 public int insertarCasa(Casa casa) throws Exception {

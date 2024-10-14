@@ -20,6 +20,8 @@ public class App {
             System.out.println("Seleccione una opción:");
             System.out.println("1. Listar familias con al menos 3 hijos y edad máxima menor a 10");
             System.out.println("2. listar las casas disponibles para el periodo comprendido entre el 1 de agosto de 2020 y el 31 de agosto de 2020 en Reino Unido");
+            System.out.println("3. Buscar y listar  todas aquellas familias cuya dirección de email sea Hotmail. ");
+            
             System.out.println("5. Salir");
             System.out.print("Opción: ");
             opcion = sc.nextInt();
@@ -68,7 +70,29 @@ public class App {
                         }
                     }
                     break;
+
+                case 3: 
+                    List<Familia> familiasHotmail = familiaSC.listarFamiliasHotmail();
                 
+                    if (familiasHotmail.isEmpty()) {
+                        System.out.println("No se encontraron familias con correo Hotmail.");
+                    } else {
+                        // Imprimir encabezados de la tabla
+                        System.out.printf("%-10s | %-15s | %-6s | %-10s | %-25s%n", 
+                            "ID", "Nombre", "Hijos", "Edad Máx", "Email");
+                        System.out.println("--------------------------------------------------------------");
+                
+                        // Imprimir los datos de las familias
+                        for (Familia familia : familiasHotmail) {
+                            System.out.printf("%-10d | %-15s | %-6d | %-10d | %-25s%n", 
+                                familia.getId(), 
+                                familia.getNombre(), 
+                                familia.getNum_hijos(), 
+                                familia.getEdad_maxima(), 
+                                familia.getEmail());
+                        }
+                    }
+                    break;
                 case 5:
                     // Salir del programa
                     System.out.println("Saliendo del programa...");

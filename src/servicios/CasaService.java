@@ -2,7 +2,6 @@ package servicios;
 
 import java.util.List;
 import entidades.Casa;
-import persistencia.CasaDAO;
 import persistencia.CasaDAO2;
 
 public class CasaService {
@@ -37,7 +36,7 @@ public class CasaService {
         Casa nuevaCasa = new Casa(calle, numero, codigo_postal, ciudad, pais, desde, hasta, tiempo_minimo, tiempo_maximo, precio_habitacion, tipo_vivienda);
         
         // Guardar la nueva casa utilizando el DAO.
-        //casaDAO.guardarCasa(nuevaCasa);
+        casaDAO.insertarCasa(nuevaCasa);
     }
 
     /**

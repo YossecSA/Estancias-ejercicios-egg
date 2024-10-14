@@ -21,6 +21,13 @@ public class Familia {
         this.num_hijos = num_hijos;
         this.email = email;
     }
+    public Familia(int id, String nombre, int num_hijos, int edad_maxima, String email) {
+        this.id = id;
+        this.nombre = nombre;
+        this.num_hijos = num_hijos;
+        this.edad_maxima = edad_maxima;
+        this.email = email;
+    }
 
     public Familia(int id, String nombre, int num_hijos, int edad_maxima) {
         this.id = id;

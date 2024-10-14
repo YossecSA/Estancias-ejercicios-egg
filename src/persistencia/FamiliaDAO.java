@@ -136,5 +136,31 @@ public class FamiliaDAO extends DAO {
             desconectarDataBase();
         }
     }
-
+    public List<Familia> listarFamiliasHotmail() throws Exception {
+        String sql = "SELECT * FROM familias WHERE email LIKE '%@hotmail.com'";
+        List<Familia> familias = new ArrayList<>();
+    
+        try {
+            connectarDataBase();
+            preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+    
+            while (resultSet.next()) {
+                Familia familia = new Familia(
+                    resultSet.getInt("id_familia"), 
+                    resultSet.getString("nombre"),
+                    resultSet.getInt("num_hijos"),
+                    resultSet.getInt("edad_maxima"),
+                    resultSet.getString("email") 
+                );
+                familias.add(familia);
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw ex;
+        } finally {
+            desconectarDataBase();
+        }
+    
+        return familias;
+    }
 }
