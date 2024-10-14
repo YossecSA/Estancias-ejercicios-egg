@@ -111,4 +111,30 @@ public class FamiliaDAO extends DAO {
             desconectarDataBase();
         }
     }
+
+    public List<Familia> listarFamiliasEjercicio1() throws Exception {
+        try {
+            String sql = "SELECT id_familia, nombre, num_hijos, edad_maxima FROM familias WHERE familias.num_hijos >= 3 AND familias.edad_maxima < 10;";
+            connectarDataBase();
+            preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            List<Familia> familias = new ArrayList<>();
+            while (resultSet.next()) {
+                Familia familia = new Familia(
+                    resultSet.getInt("id_familia"), 
+                    resultSet.getString("nombre"),
+                    resultSet.getInt("num_hijos"),
+                    resultSet.getInt("edad_maxima") 
+                );
+                familias.add(familia);
+            }
+            return familias;
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw ex;
+        } finally {
+            desconectarDataBase();
+        }
+    }
+
 }

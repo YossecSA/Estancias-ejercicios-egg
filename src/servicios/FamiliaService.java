@@ -42,6 +42,16 @@ public class FamiliaService {
         return familiaDAO.listarFamilias();
     }
 
+    public List<Familia> listarFamiliasEjercicio1() throws Exception {
+        try {
+            List<Familia> familias = familiaDAO.listarFamiliasEjercicio1();  
+            return familias;  
+        } catch (Exception e) {
+            System.out.println("Error al listar familias: " + e.getMessage());
+            throw e; 
+        }
+    }
+
     private void validarFamilia(Familia familia) throws Exception {
         if (familia == null) {
             throw new Exception("La familia no puede ser nula.");

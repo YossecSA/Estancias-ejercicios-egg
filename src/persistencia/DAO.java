@@ -17,9 +17,9 @@ public abstract class DAO {
     private final String PORT = "3306";
     private final String USER = "root";
     private final String PASSWORD = "vixlia2024";
-    private final String DATABASE = "estancia_exterior";
+    private final String DATABASE = "estancias_exterior";
 
-    private final String DRIVER = "com.mysql.jdbc.Driver";
+    private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String ZONA = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     protected void connectarDataBase() throws SQLException, ClassNotFoundException {
