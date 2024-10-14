@@ -3,13 +3,14 @@ package servicios;
 import java.util.List;
 import entidades.Casa;
 import persistencia.CasaDAO;
+import persistencia.CasaDAO2;
 
 public class CasaService {
-    private CasaDAO casaDAO;
+    private CasaDAO2 casaDAO;
 
     // Constructor que inicializa el DAO para interactuar con la base de datos.
     public CasaService() {
-        casaDAO = new CasaDAO();
+        casaDAO = new CasaDAO2();
     }
 
     /**
@@ -36,7 +37,7 @@ public class CasaService {
         Casa nuevaCasa = new Casa(calle, numero, codigo_postal, ciudad, pais, desde, hasta, tiempo_minimo, tiempo_maximo, precio_habitacion, tipo_vivienda);
         
         // Guardar la nueva casa utilizando el DAO.
-        casaDAO.guardarCasa(nuevaCasa);
+        //casaDAO.guardarCasa(nuevaCasa);
     }
 
     /**
@@ -94,7 +95,7 @@ public class CasaService {
         Casa casaModificada = new Casa(id_casa, calle, numero, codigo_postal, ciudad, pais, desde, hasta, tiempo_minimo, tiempo_maximo, precio_habitacion, tipo_vivienda);
         
         // Modificar la casa en la base de datos utilizando el DAO.
-        casaDAO.modificarCasa(casaModificada);
+        casaDAO.actualizarCasa(casaModificada);
     }
 
     /**
@@ -136,7 +137,12 @@ public class CasaService {
      */
     public List<Casa> listarCasas() throws Exception {
         // Listar todas las casas utilizando el DAO.
-        return casaDAO.listarCasas();
+        return casaDAO.listarTodasLasCasas();
+    }
+
+    public List<Casa> listarCasasEjercicio1() throws Exception {
+        // Listar todas las casas utilizando el DAO.
+        return casaDAO.listarCasasDisponibles("Reino Unido", "2020-08-01", "2020-08-31");
     }
 
     /**

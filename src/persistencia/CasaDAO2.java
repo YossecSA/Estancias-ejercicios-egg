@@ -1,9 +1,11 @@
 package persistencia;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Casa;
+import entidades.Familia;
 
 public class CasaDAO2 extends DAO {
 public int insertarCasa(Casa casa) throws Exception {
@@ -102,4 +104,40 @@ public int insertarCasa(Casa casa) throws Exception {
         String sql = "DELETE FROM casas WHERE id = " + id;
         insertarModificarEliminarDataBase(sql);
     }
+
+    public List<Casa> listarCasasDisponibles(String pais, String fechaHasta, String fechaDesde) throws Exception {
+        try {
+            String sql = "SELECT c.id_casa, c.calle, c.numero, c.ciudad, c.pais, e.fecha_desde, e.fecha_hasta " +
+                        "FROM casas c LEFT JOIN estancias e ON e.id_casa = c.id_casa " +
+                        "WHERE c.pais = ? AND (e.fecha_desde IS NULL OR e.fecha_hasta < ? OR e.fecha_desde > ?)";
+    
+            connectarDataBase();
+            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement.setString(1, pais);
+            preparedStatement.setString(2, fechaHasta);
+            preparedStatement.setString(3, fechaDesde);
+    
+            resultSet = preparedStatement.executeQuery();
+    
+            List<Casa> casas = new ArrayList<>();
+            while (resultSet.next()) {
+                Casa casa = new Casa(
+                    resultSet.getInt("id_casa"),
+                    resultSet.getString("calle"),
+                    resultSet.getInt("numero"),
+                    resultSet.getString("ciudad"),
+                    resultSet.getString("pais"),
+                    resultSet.getString("fecha_desde"),
+                    resultSet.getString("fecha_hasta")
+                );
+                casas.add(casa);
+            }
+            return casas;
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw ex;
+        } finally {
+            desconectarDataBase();
+        }
+    }
+    
 }

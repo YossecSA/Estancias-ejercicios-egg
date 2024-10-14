@@ -14,6 +14,21 @@ public class Casa {
     private Double precio_habitacion;
     private String tipo_vivienda;
 
+    private Estancia estancia;
+
+     // Constructor
+    public Casa(int id_casa, String calle, int numero,  String ciudad, String pais,
+            String fecha_desde, String fecha_hasta) {
+        this.id_casa = id_casa;
+        this.calle = calle;
+        this.numero = numero;
+        this.ciudad = ciudad;
+        this.pais = pais;
+        this.fecha_desde = fecha_desde;
+        this.fecha_hasta = fecha_hasta;
+
+    }
+
     public Casa(String calle, int numero, String codigo_postal, String ciudad, String pais, String fecha_desde,
             String fecha_hasta, int tiempo_minimo, int tiempo_maximo, Double precio_habitacion, String tipo_vivienda) {
         this.calle = calle;
