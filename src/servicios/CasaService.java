@@ -144,6 +144,10 @@ public class CasaService {
         return casaDAO.listarCasasDisponibles("Reino Unido", "2020-08-01", "2020-08-31");
     }
 
+    public List<Casa> listarCasasDisponibles(String fechaDesde, int numeroDias) throws Exception {
+        return casaDAO.listarCasasDisponibles(fechaDesde, numeroDias);
+    }
+    
     /**
      * Método para validar los datos de una casa.
      *

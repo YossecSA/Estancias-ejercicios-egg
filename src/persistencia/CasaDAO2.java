@@ -1,6 +1,7 @@
 package persistencia;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,4 +141,46 @@ public int insertarCasa(Casa casa) throws Exception {
         }
     }
     
+
+    public List<Casa> listarCasasDisponibles(String fechaDesde, int numeroDias) throws Exception {
+    List<Casa> casasDisponibles = new ArrayList<>();
+    
+    // Calcular la fecha de hasta
+    LocalDate fechaHasta = LocalDate.parse(fechaDesde).plusDays(numeroDias);
+    
+    String sql = "SELECT * FROM casas c " + 
+                 "LEFT JOIN estancias e ON e.id_casa = c.id_casa " + 
+                 "WHERE (e.fecha_desde IS NULL OR e.fecha_hasta < ? OR e.fecha_desde > ?) " + 
+                 "AND c.id_casa IS NOT NULL;";
+
+    try {
+        connectarDataBase();
+        preparedStatement = conexion.prepareStatement(sql);
+        
+        // Establecer parámetros de la consulta
+        preparedStatement.setString(1, fechaDesde);
+        preparedStatement.setString(2, fechaHasta.toString());
+
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            Casa casa = new Casa();
+            casa.setId_casa(resultSet.getInt("id_casa"));
+            casa.setCalle(resultSet.getString("calle"));
+            casa.setNumero(resultSet.getInt("numero"));
+            casa.setCiudad(resultSet.getString("ciudad"));
+            casa.setPais(resultSet.getString("pais"));
+            casa.setFecha_desde(resultSet.getString("fecha_desde")); // Si aplica
+            casa.setFecha_hasta(resultSet.getString("fecha_hasta")); // Si aplica
+            casasDisponibles.add(casa);
+        }
+    } catch (SQLException | ClassNotFoundException ex) {
+        throw ex;
+    } finally {
+        desconectarDataBase();
+    }
+
+    return casasDisponibles;
+}
+
 }

@@ -21,6 +21,7 @@ public class App {
             System.out.println("1. Listar familias con al menos 3 hijos y edad máxima menor a 10");
             System.out.println("2. listar las casas disponibles para el periodo comprendido entre el 1 de agosto de 2020 y el 31 de agosto de 2020 en Reino Unido");
             System.out.println("3. Buscar y listar  todas aquellas familias cuya dirección de email sea Hotmail. ");
+            System.out.println("4. Consulta la BD para que te devuelva aquellas casas disponibles a partir de una fecha dada y un número de días específico. ");
             
             System.out.println("5. Salir");
             System.out.print("Opción: ");
@@ -93,6 +94,34 @@ public class App {
                         }
                     }
                     break;
+
+                case 4: 
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.print("Ingrese la fecha desde (YYYY-MM-DD): ");
+                    String fechaDesde = scanner.nextLine();
+                    System.out.print("Ingrese el número de días: ");
+                    int numeroDias = scanner.nextInt();
+                
+                    List<Casa> casasDisponibles = casaSC.listarCasasDisponibles(fechaDesde, numeroDias);
+                
+                    if (casasDisponibles.isEmpty()) {
+                        System.out.println("No se encontraron casas disponibles para el periodo solicitado.");
+                    } else {
+                        System.out.printf("%-10s | %-15s | %-6s | %-10s | %-25s%n", 
+                            "ID", "Calle", "Número", "Ciudad", "Pais");
+                        System.out.println("--------------------------------------------------------------");
+                
+                        for (Casa casa : casasDisponibles) {
+                            System.out.printf("%-10d | %-15s | %-6d | %-10s | %-25s%n", 
+                                casa.getId_casa(), 
+                                casa.getCalle(), 
+                                casa.getNumero(), 
+                                casa.getCiudad(), 
+                                casa.getPais());
+                        }
+                    }
+                    break;
+
                 case 5:
                     // Salir del programa
                     System.out.println("Saliendo del programa...");
