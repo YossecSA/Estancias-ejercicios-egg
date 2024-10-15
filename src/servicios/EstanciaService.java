@@ -87,6 +87,15 @@ public class EstanciaService {
         return estanciaDAO.listarEstanciasPorCliente(id_cliente);
     }
 
+    public List<Estancia> listarEstanciasConClientesCasa() throws Exception {
+        try {
+            return estanciaDAO.listarEstanciasConClientesYCasas();
+        } catch (Exception e) {
+            System.out.println("Error al listar las estancias con clientes y casas: " + e.getMessage());
+            throw e;
+        }
+    }
+
     private void validarEstancia(Estancia estancia) throws Exception {
         if (estancia == null) {
             throw new Exception("La estancia no puede ser nula.");

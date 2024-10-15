@@ -10,6 +10,8 @@ public class Cliente {
     private String pais;
     private String email;
 
+    private Estancia estancia;
+
     public Cliente() {
     }
 
@@ -24,6 +26,7 @@ public class Cliente {
         this.pais = pais;
         this.email = email;
     }
+    
     public int getId_cliente() {
         return id_cliente;
     }
@@ -72,4 +75,13 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Estancia getEstancia() {
+        return estancia;
+    }
+
+    public void setEstancia(Estancia estancia) {
+        this.estancia = estancia;
+    }
+    
 }

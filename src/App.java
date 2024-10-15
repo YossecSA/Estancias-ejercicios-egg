@@ -2,8 +2,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import entidades.Casa;
+import entidades.Cliente;
+import entidades.Estancia;
 import entidades.Familia;
 import servicios.CasaService;
+import servicios.ClienteService;
+import servicios.EstanciaService;
 import servicios.FamiliaService;
 
 public class App {
@@ -13,6 +17,9 @@ public class App {
     public static void main(String[] args) throws Exception {
         FamiliaService familiaSC = new FamiliaService();
         CasaService casaSC = new CasaService();
+        ClienteService clienteService = new ClienteService();
+        EstanciaService estanciaService = new EstanciaService();
+
         int opcion = 0;
 
         do {
@@ -22,8 +29,9 @@ public class App {
             System.out.println("2. listar las casas disponibles para el periodo comprendido entre el 1 de agosto de 2020 y el 31 de agosto de 2020 en Reino Unido");
             System.out.println("3. Buscar y listar  todas aquellas familias cuya dirección de email sea Hotmail. ");
             System.out.println("4. Consulta la BD para que te devuelva aquellas casas disponibles a partir de una fecha dada y un número de días específico. ");
+            System.out.println("5. Buscar y listar los datos de todos los clientes que en algún momento realizaron una estancia y la descripción de la casa donde la realizaron. ");
             
-            System.out.println("5. Salir");
+            System.out.println("7. Salir");
             System.out.print("Opción: ");
             opcion = sc.nextInt();
 
@@ -123,6 +131,79 @@ public class App {
                     break;
 
                 case 5:
+                    try {
+                        List<Cliente> clientesConEstancia = clienteService.listarClientesEstanciaDescripcion();
+
+                        if (clientesConEstancia.isEmpty()) {
+                            System.out.println("No se encontraron clientes con estancias registradas.");
+                        } else {
+                            // Encabezado de la tabla
+                            System.out.printf("%-5s | %-15s | %-15s | %-20s | %-15s | %-10s | %-15s | %-5s | %-15s | %-10s%n",
+                                    "ID", "Cliente", "Ciudad", "Email", "Huésped", "Desde", "Hasta", "Casa", "Calle", "Tipo Vivienda");
+                            System.out.println("---------------------------------------------------------------------------------------------" +
+                                            "------------------------------------------------------");
+
+                            // Mostrar los datos de los clientes con estancia y la descripción de la casa
+                            for (Cliente cliente : clientesConEstancia) {
+                                Estancia estancia = cliente.getEstancia();
+                                Casa casa = estancia.getCasa();
+
+                                System.out.printf("%-5d | %-15s | %-15s | %-20s | %-15s | %-10s | %-10s | %-5d | %-15s | %-10s%n",
+                                        cliente.getId_cliente(), // ID Cliente
+                                        cliente.getNombre(),     // Nombre Cliente
+                                        cliente.getCiudad(),     // Ciudad Cliente
+                                        cliente.getEmail(),      // Email Cliente
+                                        estancia.getNombre_huesped(), // Nombre Huésped
+                                        estancia.getFecha_desde(),    // Fecha desde
+                                        estancia.getFecha_hasta(),    // Fecha hasta
+                                        casa.getNumero(),          // Número de casa
+                                        casa.getCalle(),           // Calle de la casa
+                                        casa.getTipo_vivienda()     // Tipo de vivienda
+                                );
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case 6:
+                    try {
+                        List<Estancia> estancias = estanciaService.listarEstanciasConClientesCasa();
+                
+                        if (estancias.isEmpty()) {
+                            System.out.println("No se encontraron estancias registradas.");
+                        } else {
+                            // Mostrar los datos de estancias, clientes y casas
+                            System.out.printf("%-5s | %-20s | %-10s | %-15s | %-15s | %-10s | %-10s | %-15s | %-10s%n",
+                                    "ID", "Cliente", "País", "Ciudad", "Casa Calle", "Casa Número", "Casa Ciudad", "Casa País", "Tipo Vivienda");
+                            System.out.println("------------------------------------------------------------------------------------------------------" +
+                                                "---------------------------------------------");
+                
+                            for (Estancia estancia : estancias) {
+                                Cliente cliente = estancia.getCliente();
+                                Casa casa = estancia.getCasa();
+                
+                                System.out.printf("%-5d | %-20s | %-10s | %-15s | %-15s | %-10d | %-10s | %-15s | %-10s%n",
+                                        estancia.getId_estancia(),
+                                        cliente.getNombre(),
+                                        cliente.getPais(),
+                                        cliente.getCiudad(),
+                                        casa.getCalle(),
+                                        casa.getNumero(),
+                                        casa.getCiudad(),
+                                        casa.getPais(),
+                                        casa.getTipo_vivienda()
+                                );
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                
+
+                case 7:
                     // Salir del programa
                     System.out.println("Saliendo del programa...");
                     break;

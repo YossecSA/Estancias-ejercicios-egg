@@ -47,4 +47,11 @@ public class ClienteService {
     public List<Cliente> listarClientes() throws Exception {
         return clienteDAO.listarClientes();
     }
+
+    
+    public List<Cliente> listarClientesEstanciaDescripcion() throws Exception {
+        return clienteDAO.listarClientesConEstancia();
+    }
+
+    
 }

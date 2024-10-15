@@ -8,6 +8,9 @@ public class Estancia {
     private String fecha_desde;
     private String fecha_hasta;
 
+    private Casa casa;
+    private Cliente cliente;
+
     public Estancia() {
     }
     
@@ -30,6 +33,26 @@ public class Estancia {
         this.fecha_desde = fecha_desde;
         this.fecha_hasta = fecha_hasta;
     }
+    
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+
+    public Casa getCasa() {
+        return casa;
+    }
+
+    public void setCasa(Casa casa) {
+        this.casa = casa;
+    }
+
     public int getId_estancia() {
         return id_estancia;
     }
