@@ -13,10 +13,29 @@ public class Casa {
     private int tiempo_maximo;
     private Double precio_habitacion;
     private String tipo_vivienda;
-
+    
     private Estancia estancia;
+    private String comentario;
+    
+    private int CantidadCasas;
 
-     // Constructor
+     public Estancia getEstancia() {
+        return estancia;
+    }
+
+    public void setEstancia(Estancia estancia) {
+        this.estancia = estancia;
+    }
+
+    public int getCantidadCasas() {
+        return CantidadCasas;
+    }
+
+    public void setCantidadCasas(int cantidadCasas) {
+        CantidadCasas = cantidadCasas;
+    }
+
+    // Constructor
     public Casa(int id_casa, String calle, int numero,  String ciudad, String pais,
             String fecha_desde, String fecha_hasta) {
         this.id_casa = id_casa;
@@ -135,6 +154,14 @@ public class Casa {
     }
     public void setTipo_vivienda(String tipo_vivienda) {
         this.tipo_vivienda = tipo_vivienda;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
 

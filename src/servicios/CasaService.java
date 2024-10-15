@@ -148,6 +148,14 @@ public class CasaService {
         return casaDAO.listarCasasDisponibles(fechaDesde, numeroDias);
     }
     
+    public List<Casa>listarCasaPais() throws Exception {
+        return casaDAO.listarCasasPais();
+    }
+
+    public List<Casa>listarCasaComentarioLike() throws Exception {
+        return casaDAO.listarCasasComentarioLimpio();
+    }
+
     /**
      * Método para validar los datos de una casa.
      *

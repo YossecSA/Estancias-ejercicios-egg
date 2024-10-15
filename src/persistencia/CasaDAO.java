@@ -177,5 +177,4 @@ public class CasaDAO extends DAO {
         }
     }
 
-
 }

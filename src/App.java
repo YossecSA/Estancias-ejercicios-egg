@@ -30,6 +30,9 @@ public class App {
             System.out.println("3. Buscar y listar  todas aquellas familias cuya dirección de email sea Hotmail. ");
             System.out.println("4. Consulta la BD para que te devuelva aquellas casas disponibles a partir de una fecha dada y un número de días específico. ");
             System.out.println("5. Buscar y listar los datos de todos los clientes que en algún momento realizaron una estancia y la descripción de la casa donde la realizaron. ");
+            System.out.println("6. Buscar y listar todas las estancias que han sido reservadas por un cliente, mostrar el nombre, país y ciudad del cliente y además la información de la casa que reservó. La que reemplazaría a la anterior ");
+            System.out.println("7. Buscar y listar los datos de todos los clientes que en algún momento realizaron una estancia y la descripción de la casa donde la realizaron. ");
+            System.out.println("8. Obtener el número de casas que existen para cada uno de los países diferentes.");
             
             System.out.println("7. Salir");
             System.out.print("Opción: ");
@@ -202,8 +205,60 @@ public class App {
                     }
                     break;
                 
+                case 8:
+                    try {
+                        List<Casa> casaLista = casaSC.listarCasaPais();
 
-                case 7:
+                        if (casaLista.isEmpty()) {
+                            System.out.println("No se encontraron estancias registradas.");
+                        } else {
+                            // Mostrar los datos de casas por país
+                            System.out.printf("%-20s | %-10s%n", "País", "Cantidad de Casas");
+                            System.out.println("---------------------------------------------------");
+                
+                            for (Casa casasPorPais : casaLista) {
+                                System.out.printf("%-20s | %-10d%n", 
+                                    casasPorPais.getPais(), 
+                                    casasPorPais.getCantidadCasas());
+                            }
+                        }
+
+                    } catch (Exception e) {
+
+                    }
+
+                    break;
+
+                case 9:
+                    try {
+                        List<Casa> casaLista = casaSC.listarCasaComentarioLike();
+                
+                        if (casaLista.isEmpty()) {
+                            System.out.println("No se encontraron casas registradas.");
+                        } else {
+                            // Mostrar los datos de casas
+                            System.out.printf("%-5s | %-20s | %-10s | %-15s | %-15s | %-10s%n", 
+                                "ID", "Calle", "Número", "Ciudad", "País", "Comentario");
+                            System.out.println("--------------------------------------------------------------------------------");
+                
+                            for (Casa casaLike : casaLista) {
+                                System.out.printf("%-5d | %-20s | %-10d | %-15s | %-15s | %-10s%n",
+                                    casaLike.getId_casa(),
+                                    casaLike.getCalle(),
+                                    casaLike.getNumero(),
+                                    casaLike.getCiudad(),
+                                    casaLike.getPais(),
+                                    casaLike.getComentario()
+                                );
+                            }
+                        }
+                
+                    } catch (Exception e) {
+                        e.printStackTrace(); // Agregando esto para ver errores en caso de excepción
+                    }
+                    break;
+                
+                case 10:
                     // Salir del programa
                     System.out.println("Saliendo del programa...");
                     break;
